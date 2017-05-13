@@ -25,12 +25,24 @@ class Ball {
     bounce();
   }
 
+  void draw() {
+    ellipseMode(RADIUS);
+    fill(c);
+    ellipse(x, y, rad, rad);
+  }
+
   void bounce() {
     if (x<=0 || x >= width) {
       dx = -dx;
     }
     if (y <= 0 || y >= height) {
       dy = -dy;
+    }
+  }
+
+  void expandBall(float radIncrLimit, float increment){
+    for(float i = 0; i < radIncrLimit; i+=increment){
+      r += i;
     }
   }
 }
