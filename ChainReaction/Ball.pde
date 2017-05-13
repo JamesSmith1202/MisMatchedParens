@@ -5,7 +5,9 @@ class Ball {
   color c;
   float dx;
   float dy;
-  int state;
+  int state; //0 = normal, 1 = chainball 
+  float increase;//incrementation for chainballs
+  int threshold;//maximum radius size for chain reaction balls
 
   Ball() {
     float r = random(256);
@@ -17,6 +19,9 @@ class Ball {
     y = random((height - r) + r/2);
     dx = random(10)-5;
     dy = random(10)-5;
+    state = 0;
+    increase = 0.1;//increases radius by 0.1 everytime it is drawn to the screen
+    threshold = 60;//to a max of radius = 60
   }
 
   void move() {
@@ -27,22 +32,39 @@ class Ball {
 
   void draw() {
     ellipseMode(RADIUS);
-    fill(c);
-    ellipse(x, y, rad, rad);
+    fill(c);//make the ball the color
+    ellipse(x, y, rad, rad);//draw an ellipse at x, y, with radius rad
   }
 
   void bounce() {
-    if (x<=0 || x >= width) {
+    if (x<=0 || x >= width) {//if it contacts the sides, negate the x direction to reflect incident angle
       dx = -dx;
     }
-    if (y <= 0 || y >= height) {
+    if (y <= 0 || y >= height) {//same but for top and bottom
       dy = -dy;
     }
   }
 
-  void expandBall(float radIncrLimit, float increment){
-    for(float i = 0; i < radIncrLimit; i+=increment){
-      r += i;
+  void expandBall() {
+    if (rad > 0 && rad < threshold) {//if the radius is less than the threshold...
+      rad += increase;
     }
+  }
+
+  void setState(int x) {
+    state = x;
+  }
+
+
+  float distSquared(Ball b) {//calculates the distance squared between the centers of two balls
+    return pow((x-b.x), 2) + pow((y-b.y), 2);
+  }
+
+  int getState() {
+    return state;
+  }
+  
+  float getRadius(){
+    return rad;
   }
 }
