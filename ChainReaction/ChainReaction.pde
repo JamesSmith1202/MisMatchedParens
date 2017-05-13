@@ -17,7 +17,7 @@ void draw() {
     for (Ball b : balls) {
       for (Ball r : balls) {
         if (r.getState() == 1) {//compare a given ball to all of the chain reaction balls
-          if (b.distSquared(r) < pow((b.getRadius() + r.getRadius()), 2) {//if their distance squared is less than the sum of the radii squared, then they are in contact
+          if (b.distSquared(r) < pow((b.getRadius() + r.getRadius()), 2)) {//if their distance squared is less than the sum of the radii squared, then they are in contact
             b.setState(1);//since they touched, make it a chain reaction ball
           }
         }
