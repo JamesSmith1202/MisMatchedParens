@@ -31,13 +31,16 @@ void draw() {
   }
   for (Ball b : balls) {//iterate through all balls, draw them to the screen, then move them
     b.draw();
-    b.move();
+    if (b.getState() == 0) {
+      b.move();
+    }
   }
 }
 
 void mouseClicked() {
   reactionStarted = true;
-  Ball x = new Ball();//create a new ball
-  x.setState(1);//set it to a chain reaction ball
-  balls[balls.length-1] = x;//****replace it with the last one for now**** not a viable option. I just forgot how the program loooked
+  Ball reactionBall = new Ball();//create a new ball
+  reactionBall.setState(1);//set it to a chain reaction ball
+  balls = (Ball[]) expand(balls, balls.length+1);//expand the balls array by 1(I know it is inefficient, but for the sake of the program, you are really only going to call it once
+  balls[balls.length-1] = reactionBall;//insert the reactionBall into the last slot :)
 }
