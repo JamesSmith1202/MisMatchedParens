@@ -6,7 +6,7 @@ class Ball {
   float dx;
   float dy;
   int state; //0 = normal, 1 = chainball 
-  float increase;//incrementation for chainballs
+  float increment;//incrementation for chainballs
   int threshold;//maximum radius size for chain reaction balls
 
   Ball() {
@@ -20,7 +20,20 @@ class Ball {
     dx = random(10)-5;
     dy = random(10)-5;
     state = 0;
-    increase = 0.1;//increases radius by 0.1 everytime it is drawn to the screen
+    increment = 0.1;//increments radius by 0.1 everytime it is drawn to the screen
+    threshold = 60;//to a max of radius = 60
+  }
+
+  Ball(float red, float green, float blue) {
+    float r = red;
+    float g = green;
+    float b = blue;
+    c = color(r, g, b);
+    rad = 10;
+    x = mouseX;
+    y = mouseY;
+    state = 0;
+    increment = 0.1;//increments radius by 0.1 everytime it is drawn to the screen
     threshold = 60;//to a max of radius = 60
   }
 
@@ -47,8 +60,14 @@ class Ball {
 
   void expandBall() {
     if (rad > 0 && rad < threshold) {//if the radius is less than the threshold...
-      rad += increase;
+      rad += increment;
+    } else {
+      rad -= increment;
     }
+  }
+
+  void shrinkBall() {  
+    rad -= increment;
   }
 
   void setState(int x) {
@@ -63,8 +82,8 @@ class Ball {
   int getState() {
     return state;
   }
-  
-  float getRadius(){
+
+  float getRadius() {
     return rad;
   }
 }

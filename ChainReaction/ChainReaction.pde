@@ -20,12 +20,18 @@ void draw() {
           if (b.distSquared(r) < pow((b.getRadius() + r.getRadius()), 2)) {//if their distance squared is less than the sum of the radii squared, then they are in contact
             b.setState(1);//since they touched, make it a chain reaction ball
           }
+          if (b.getRadius() == b.threshold) {
+            b.setState(2);//now needs to shrink
+          }
         }
       }
     }
     for (Ball b : balls) {
       if (b.getState() == 1) { //if the ball is a chain reaction ball..
         b.expandBall();//expand it by 'increase'
+      }
+      if (b.getState() == 2) { //if it has reached max size
+        b.shrinkBall();
       }
     }
   }
@@ -38,9 +44,11 @@ void draw() {
 }
 
 void mouseClicked() {
-  reactionStarted = true;
-  Ball reactionBall = new Ball();//create a new ball
-  reactionBall.setState(1);//set it to a chain reaction ball
-  balls = (Ball[]) expand(balls, balls.length+1);//expand the balls array by 1(I know it is inefficient, but for the sake of the program, you are really only going to call it once
-  balls[balls.length-1] = reactionBall;//insert the reactionBall into the last slot :)
+  if (reactionStarted == false) {
+    reactionStarted = true;
+    Ball reactionBall = new Ball(255,40,0);//create a new ball
+    reactionBall.setState(1);//set it to a chain reaction ball
+    balls = (Ball[]) expand(balls, balls.length+1);//expand the balls array by 1(I know it is inefficient, but for the sake of the program, you are really only going to call it once
+    balls[balls.length-1] = reactionBall;//insert the reactionBall into the last slot :)
+  }
 }
