@@ -17,24 +17,22 @@ void draw() {
     for (Ball b : balls) {
       for (Ball r : balls) {
         if (r.getState() == 1) {//compare a given ball to all of the chain reaction balls
-          if (b.distSquared(r) < pow((b.getRadius() + r.getRadius()), 2) && b.getRadius() != 30) {//if their distance squared is less than the sum of the radii squared, then they are in contact
+          if (b.distSquared(r) < pow((b.getRadius() + r.getRadius()), 2)) {//if their distance squared is less than the sum of the radii squared, then they are in contact
             b.setState(1);//since they touched, make it a chain reaction ball
-          }
-          if (b.getRadius() == 30) {
-            b.setState(2);
           }
         }
       }
     }
-    for (Ball b : balls) {
-      if (b.getState() == 1) { //if the ball is a chain reaction ball..
-        b.expandBall();//expand it by 'increase'
-      }
-      if (b.getState() == 2) { //if it has reached max size
-        b.shrinkBall();//shrink it back down
-      }
+  }
+  for (Ball b : balls) {
+    if (b.getState() == 1 && b.getRadius() != 30) { //if the ball is a chain reaction ball..
+      b.expandBall();//expand it by 'increase'
+    }
+    if(b.getRadius() == 30){
+      b.shrinkBall();
     }
   }
+
   for (Ball b : balls) {//iterate through all balls, draw them to the screen, then move them
     b.draw();
     if (b.getState() == 0) {
@@ -42,7 +40,6 @@ void draw() {
     }
   }
 }
-
 void mouseClicked() {
   if (reactionStarted == false) {
     reactionStarted = true;

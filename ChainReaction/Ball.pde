@@ -5,7 +5,7 @@ class Ball {
   color c;
   float dx;
   float dy;
-  int state; //0 = normal, 1 = chainball, 2 = decreasing
+  int state; //0 = normal, 1 = chainball
   float increment;//incrementation for chainballs
   int threshold;//maximum radius size for chain reaction balls
 
@@ -62,14 +62,10 @@ class Ball {
     if (rad > 0 && rad < threshold) {//if the radius is less than the threshold...
       rad += increment;
     }
-    if (rad == threshold) {
-      state = 2;
-    }
   }
 
   void shrinkBall() {  
     rad -= increment;
-    System.out.println(state);
   }
 
   void setState(int x) {
