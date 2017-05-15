@@ -62,13 +62,19 @@ class Ball {
   }
 
   void expandBall() {
-    if (rad > 0 && rad < threshold) {//if the radius is less than the threshold...
+    if (rad >= threshold && !expanded) {
+      expanded = true;
+    } else if (!expanded) {//if the radius is less than the threshold...
       rad += increment;
+    } else {
+      shrinkBall();
     }
   }
 
-  void shrinkBall() {  
-    rad -= increment;
+  void shrinkBall() {
+    if (rad > 0) {
+      rad -= increment;
+    }
   }
 
   void setState(int x) {
@@ -89,9 +95,5 @@ class Ball {
 
   float getRadius() {
     return rad;
-  }
-
-  boolean getExpanded() {
-    return expanded;
   }
 }

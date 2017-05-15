@@ -22,28 +22,19 @@ void draw() {
           }
         }
       }
-    }
-  }
-  for (Ball b : balls) {
-    if (! b.getExpanded()) {
       if (b.getState() == 1) { //if the ball is a chain reaction ball..
         b.expandBall();//expand it by 'increase'
-        if (b.getRadius() == 30) { 
-          b.setExpanded(true);
-        }
       }
-    } else if ( b.getExpanded()) {
-      b.shrinkBall();
     }
   }
-
-  for (Ball b : balls) {//iterate through all balls, draw them to the screen, then move them
-    b.draw();
-    if (b.getState() == 0) {
-      b.move();
-    }
+  for(Ball b: balls){
+  b.draw();
+  if (b.getState() == 0) {
+    b.move();
   }
 }
+}
+
 void mouseClicked() {
   if (reactionStarted == false) {
     reactionStarted = true;
