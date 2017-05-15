@@ -27,12 +27,12 @@ void draw() {
       }
     }
   }
-  for(Ball b: balls){
-  b.draw();
-  if (b.getState() == 0) {
-    b.move();
+  for (Ball b : balls) {
+    b.draw();
+    if (b.getState() == 0) {
+      b.move();
+    }
   }
-}
 }
 
 void mouseClicked() {
