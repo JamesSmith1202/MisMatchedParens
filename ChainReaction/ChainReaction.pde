@@ -25,10 +25,14 @@ void draw() {
     }
   }
   for (Ball b : balls) {
-    if (b.getState() == 1 && b.getRadius() != 30) { //if the ball is a chain reaction ball..
-      b.expandBall();//expand it by 'increase'
-    }
-    if(b.getRadius() == 30){
+    if (! b.getExpanded()) {
+      if (b.getState() == 1) { //if the ball is a chain reaction ball..
+        b.expandBall();//expand it by 'increase'
+        if (b.getRadius() == 30) { 
+          b.setExpanded(true);
+        }
+      }
+    } else if ( b.getExpanded()) {
       b.shrinkBall();
     }
   }

@@ -8,6 +8,7 @@ class Ball {
   int state; //0 = normal, 1 = chainball
   float increment;//incrementation for chainballs
   int threshold;//maximum radius size for chain reaction balls
+  boolean expanded;//has it reached max size?
 
   Ball() {
     float r = random(256);
@@ -22,6 +23,7 @@ class Ball {
     state = 0;
     increment = 0.1;//increments radius by 0.1 everytime it is drawn to the screen
     threshold = 30;//to a max of radius = 30
+    expanded = false;
   }
 
   Ball(float red, float green, float blue) {
@@ -35,6 +37,7 @@ class Ball {
     state = 0;
     increment = 0.1;//increments radius by 0.1 everytime it is drawn to the screen
     threshold = 30;//to a max of radius = 30
+    expanded = false;
   }
 
   void move() {
@@ -72,6 +75,9 @@ class Ball {
     state = x;
   }
 
+  void setExpanded(boolean t) {
+    expanded = t;
+  }
 
   float distSquared(Ball b) {//calculates the distance squared between the centers of two balls
     return pow((x-b.x), 2) + pow((y-b.y), 2);
@@ -83,5 +89,9 @@ class Ball {
 
   float getRadius() {
     return rad;
+  }
+
+  boolean getExpanded() {
+    return expanded;
   }
 }
